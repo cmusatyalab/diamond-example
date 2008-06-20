@@ -12,7 +12,7 @@ typedef struct {
 } context_t;
 
 // 3 functions for diamond filter interface
-int f_init_example (int num_arg, char **args,
+int f_init_string (int num_arg, char **args,
 		    int bloblen, void *blob_data,
 		    const char *filter_name,
 		    void **filter_args) {
@@ -37,7 +37,7 @@ int f_init_example (int num_arg, char **args,
 
 
 
-int f_eval_example (lf_obj_handle_t ohandle, void *filter_args) {
+int f_eval_string (lf_obj_handle_t ohandle, void *filter_args) {
   context_t *ctx = (context_t *) filter_args;
   const char *target_str = ctx->target_str;
   int result = 0;
@@ -77,7 +77,7 @@ int f_eval_example (lf_obj_handle_t ohandle, void *filter_args) {
 
 
 
-int f_fini_example (void *filter_args) {
+int f_fini_string (void *filter_args) {
   context_t *ctx = (context_t *) filter_args;
 
   free(ctx->target_str);
