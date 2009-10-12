@@ -46,6 +46,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import edu.cmu.cs.diamond.opendiamond.*;
@@ -75,9 +76,11 @@ public class StringFind {
             FilterCode code = new FilterCode(new FileInputStream(codeFile));
 
             // filter
+            List<String> dependencies = Collections.emptyList();
+            List<String> arguments = Arrays.asList(new String[] { target });
             Filter stringFilter = new Filter("string", code, "f_eval_string",
-                    "f_init_string", "f_fini_string", 1, new String[0],
-                    new String[] { target }, 100);
+                    "f_init_string", "f_fini_string", 1, dependencies,
+                    arguments, 100);
 
             List<Filter> filters = new ArrayList<Filter>();
             filters.add(stringFilter);
