@@ -44,6 +44,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import edu.cmu.cs.diamond.opendiamond.*;
 
@@ -66,6 +69,7 @@ public class StringFind {
         final String target = args[1];
 
         // Diamond
+        Search s = null;
         try {
             // code
             FilterCode code = new FilterCode(new FileInputStream(codeFile));
@@ -75,16 +79,16 @@ public class StringFind {
                     "f_init_string", "f_fini_string", 1, new String[0],
                     new String[] { target }, 100);
 
-            // searchlet
-            Searchlet searchlet = new Searchlet();
-            searchlet.addFilter(stringFilter);
-            searchlet.setApplicationDependencies(new String[] { "string" });
+            List<Filter> filters = new ArrayList<Filter>();
+            filters.add(stringFilter);
+
+            // search factory
+            SearchFactory factory = new SearchFactory(filters, Arrays
+                    .asList(new String[] { "string" }), SearchFactory
+                    .createDefaultCookieMap());
 
             // search
-            Search s = Search.getSharedInstance();
-            s.setScope(ScopeSource.getPredefinedScopeList().get(0));
-            s.setSearchlet(searchlet);
-            s.start();
+            s = factory.createSearch(null);
 
             // results
             Result r;
@@ -97,10 +101,16 @@ public class StringFind {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            if (s != null) {
+                s.close();
+            }
         }
     }
 
     public static void processResult(Result r) {
+        System.out.println(r);
+
         // some metadata
         String objName = r.getObjectName();
         String serverName = r.getServerName();
