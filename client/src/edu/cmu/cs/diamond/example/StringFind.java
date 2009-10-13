@@ -42,7 +42,6 @@ package edu.cmu.cs.diamond.example;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +52,8 @@ import edu.cmu.cs.diamond.opendiamond.*;
 
 public class StringFind {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException,
+            IOException {
         if (args.length != 2) {
             System.out.println("usage: fil_string.so string_query");
             System.exit(1);
@@ -98,14 +98,9 @@ public class StringFind {
             while ((r = s.getNextResult()) != null) {
                 processResult(r);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } finally {
             if (s != null) {
+                System.out.println("close");
                 s.close();
             }
         }
