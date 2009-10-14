@@ -110,7 +110,7 @@ public class StringFind {
         System.out.println(r);
 
         // some metadata
-        String objName = r.getObjectName();
+        String objName = r.getName();
         String serverName = r.getServerName();
 
         // the object itself
