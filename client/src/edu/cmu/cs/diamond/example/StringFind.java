@@ -80,7 +80,7 @@ public class StringFind {
             List<String> arguments = Arrays.asList(new String[] { target });
             Filter stringFilter = new Filter("string", code, "f_eval_string",
                     "f_init_string", "f_fini_string", 1, dependencies,
-                    arguments, 100);
+                    arguments);
 
             List<Filter> filters = new ArrayList<Filter>();
             filters.add(stringFilter);
