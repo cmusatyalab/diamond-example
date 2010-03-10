@@ -85,7 +85,7 @@ int f_eval_string (lf_obj_handle_t ohandle, void *filter_args) {
   // slurp in the object
   size_t len;
   unsigned char *data;
-  lf_next_block(ohandle, INT_MAX, &len, &data);
+  lf_ref_attr(ohandle, "", &len, &data);
 
   char *source = malloc(len + 1);
   if (source == NULL) {
