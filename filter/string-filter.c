@@ -52,8 +52,8 @@ typedef struct {
 } context_t;
 
 // 3 functions for diamond filter interface
-int f_init_string (int num_arg, char **args,
-		    int bloblen, void *blob_data,
+int f_init_string (int num_arg, const char * const *args,
+		    int bloblen, const void *blob_data,
 		    const char *filter_name,
 		    void **filter_args) {
   // check args
@@ -84,7 +84,7 @@ int f_eval_string (lf_obj_handle_t ohandle, void *filter_args) {
 
   // slurp in the object
   size_t len;
-  unsigned char *data;
+  const void *data;
   lf_ref_attr(ohandle, "", &len, &data);
 
   char *source = malloc(len + 1);
