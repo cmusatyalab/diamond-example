@@ -51,7 +51,7 @@ typedef struct {
   char *target_str;
 } context_t;
 
-// 3 functions for diamond filter interface
+// 2 functions for diamond filter interface
 int f_init_string (int num_arg, const char * const *args,
 		    int bloblen, const void *blob_data,
 		    const char *filter_name,
@@ -115,13 +115,5 @@ int f_eval_string (lf_obj_handle_t ohandle, void *filter_args) {
   return result;
 }
 
-
-
-int f_fini_string (void *filter_args) {
-  context_t *ctx = (context_t *) filter_args;
-
-  free(ctx->target_str);
-
-  free(ctx);
-  return 0;
-}
+// Declare the init and eval functions we want to use
+LF_MAIN(f_init_string, f_eval_string)

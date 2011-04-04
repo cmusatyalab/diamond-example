@@ -55,7 +55,7 @@ public class StringFind {
     public static void main(String[] args) throws InterruptedException,
             IOException {
         if (args.length != 2) {
-            System.out.println("usage: fil_string.so string_query");
+            System.out.println("usage: fil_string string_query");
             System.exit(1);
         }
 
@@ -78,8 +78,7 @@ public class StringFind {
             // filter
             List<String> dependencies = Collections.emptyList();
             List<String> arguments = Arrays.asList(new String[] { target });
-            Filter stringFilter = new Filter("string", code, "f_eval_string",
-                    "f_init_string", "f_fini_string", 1, dependencies,
+            Filter stringFilter = new Filter("string", code, 1, dependencies,
                     arguments);
 
             List<Filter> filters = new ArrayList<Filter>();
