@@ -20,3 +20,9 @@ your gid_map/name_map and run the java. The main class is
 edu.cmu.cs.diamond.example.StringFind. You will need to give the
 location of fil_string as well as a text string to search for.
 Results will be printed.
+
+The python directory also contains a filter for use with HyperFind which
+searches images based on their orientation (horizontal or vertical).  This
+filter can be packaged into a filter bundle with make.  The bundle can
+then be installed in the HyperFind plugin directory or dragged into the
+HyperFind window for one-off searches.
