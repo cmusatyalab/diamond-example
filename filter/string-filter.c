@@ -4,7 +4,7 @@
  * This code is licensed under a permissive license and is meant to be
  * copied and incorporated into other projects.
  *
- * Copyright (c) 2008, Carnegie Mellon University
+ * Copyright (c) 2008-2011, Carnegie Mellon University
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,6 +43,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <limits.h>
+// for g_base64_decode_inplace()
+#include <glib.h>
 
 #include "lib_filter.h"
 
@@ -56,6 +58,8 @@ int f_init_string (int num_arg, const char * const *args,
 		    int bloblen, const void *blob_data,
 		    const char *filter_name,
 		    void **filter_args) {
+  gsize len;
+
   // check args
   if (num_arg < 1) {
     return -1;
@@ -65,10 +69,13 @@ int f_init_string (int num_arg, const char * const *args,
   context_t *ctx = (context_t *) malloc(sizeof(context_t));
 
   // args is:
-  // 1. target_string: string to search for in each object
+  // 1. target_string: string to search for in each object, base64-encoded
 
   // fill in
   ctx->target_str = strdup(args[0]);
+  g_base64_decode_inplace(ctx->target_str, &len);
+  // null-terminate
+  ctx->target_str[len] = 0;
 
   // ready?
   *filter_args = ctx;

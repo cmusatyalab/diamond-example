@@ -4,7 +4,7 @@
  * This code is licensed under a permissive license and is meant to be
  * copied and incorporated into other projects.
  *
- * Copyright (c) 2008, Carnegie Mellon University
+ * Copyright (c) 2008-2011, Carnegie Mellon University
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,7 +77,11 @@ public class StringFind {
 
             // filter
             List<String> dependencies = Collections.emptyList();
-            List<String> arguments = Arrays.asList(new String[] { target });
+            // filter arguments cannot contain spaces; base64-encode the
+            // target string to get around this
+            List<String> arguments = Arrays.asList(new String[] {
+                Util.base64Encode(target.getBytes())
+            });
             Filter stringFilter = new Filter("string", code, 1, dependencies,
                     arguments);
 
