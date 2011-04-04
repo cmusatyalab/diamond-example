@@ -11,6 +11,10 @@ the filter. The easiest(?) way to build is by importing into Eclipse.
 Do this after importing the OpenDiamond java project into Eclipse.
 OpenDiamond Java Bindings are from http://diamond.cs.cmu.edu/
 
+The python directory contains a Python implementation of the text search
+filter.  This can be used with the example client as a drop-in replacement
+for the C filter.
+
 To run the client, set up adiskd with some text files. Then set
 your gid_map/name_map and run the java. The main class is
 edu.cmu.cs.diamond.example.StringFind. You will need to give the
