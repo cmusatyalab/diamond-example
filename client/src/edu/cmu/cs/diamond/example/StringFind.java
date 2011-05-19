@@ -89,9 +89,8 @@ public class StringFind {
             filters.add(stringFilter);
 
             // search factory
-            SearchFactory factory = new SearchFactory(filters, Arrays
-                    .asList(new String[] { "string" }), CookieMap
-                    .createDefaultCookieMap());
+            SearchFactory factory = new SearchFactory(filters,
+                    CookieMap.createDefaultCookieMap());
 
             // search
             s = factory.createSearch(null);
