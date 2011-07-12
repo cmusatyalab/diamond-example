@@ -45,7 +45,6 @@ import sys
 class StringFilter(Filter):
     name = 'String filter'
     params = Parameters(
-        # Automatically Base64-decoded
         StringParameter('Search string'),
     )
     # Override default dependency on RGB image filter, since we're not

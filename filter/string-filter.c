@@ -43,14 +43,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <limits.h>
-// for g_base64_decode_inplace()
-#include <glib.h>
 
 #include "lib_filter.h"
 
 
 typedef struct {
-  char *target_str;
+  const char *target_str;
 } context_t;
 
 // 2 functions for diamond filter interface
@@ -58,8 +56,6 @@ int f_init_string (int num_arg, const char * const *args,
 		    int bloblen, const void *blob_data,
 		    const char *filter_name,
 		    void **filter_args) {
-  gsize len;
-
   // check args
   if (num_arg < 1) {
     return -1;
@@ -69,13 +65,10 @@ int f_init_string (int num_arg, const char * const *args,
   context_t *ctx = (context_t *) malloc(sizeof(context_t));
 
   // args is:
-  // 1. target_string: string to search for in each object, base64-encoded
+  // 1. target_string: string to search for in each object
 
   // fill in
-  ctx->target_str = strdup(args[0]);
-  g_base64_decode_inplace(ctx->target_str, &len);
-  // null-terminate
-  ctx->target_str[len] = 0;
+  ctx->target_str = args[0];
 
   // ready?
   *filter_args = ctx;

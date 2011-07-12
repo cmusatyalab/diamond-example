@@ -77,11 +77,7 @@ public class StringFind {
 
             // filter
             List<String> dependencies = Collections.emptyList();
-            // filter arguments cannot contain spaces; base64-encode the
-            // target string to get around this
-            List<String> arguments = Arrays.asList(new String[] {
-                Util.base64Encode(target.getBytes())
-            });
+            List<String> arguments = Arrays.asList(new String[] {target});
             Filter stringFilter = new Filter("string", code, 1, dependencies,
                     arguments);
 
