@@ -58,9 +58,9 @@ class OrientationFilter(Filter):
     def __call__(self, obj):
         width, height = obj.image.size
         if (height < width) ^ self.want_vertical:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
 
 if __name__ == '__main__':
