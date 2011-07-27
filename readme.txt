@@ -15,7 +15,7 @@ The python directory contains a Python implementation of the text search
 filter.  This can be used with the example client as a drop-in replacement
 for the C filter.
 
-To run the client, set up adiskd with some text files. Then set
+To run the client, set up diamondd with some text files. Then set
 your gid_map/name_map and run the java. The main class is
 edu.cmu.cs.diamond.example.StringFind. You will need to give the
 location of fil_string as well as a text string to search for.
