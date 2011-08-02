@@ -7,9 +7,8 @@ The filter directory contains a simple filter that can be used for
 searching for text in files. This can be made with make.
 
 The client directory contains a simple Java-based client for testing
-the filter. The easiest(?) way to build is by importing into Eclipse.
-Do this after importing the OpenDiamond java project into Eclipse.
-OpenDiamond Java Bindings are from http://diamond.cs.cmu.edu/
+the filter. This can be built with Ant. You must have the OpenDiamond Java
+library, which is available at <http://diamond.cs.cmu.edu/>.
 
 The python directory contains a Python implementation of the text search
 filter.  This can be used with the example client as a drop-in replacement

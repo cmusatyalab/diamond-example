@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="jar" name="StringFind">
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="StringFind.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="/usr/share/java/opendiamond.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+    </target>
+    <target depends="init" name="build">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin"
+                source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="StringFind.classpath"/>
+        </javac>
+    </target>
+    <target depends="build" name="jar">
+        <jar destfile="stringfind.jar" basedir="bin"/>
+    </target>
+    <target name="clean">
+      <delete dir="bin"/>
+      <delete file="stringfind.jar"/>
+    </target>
+</project>
