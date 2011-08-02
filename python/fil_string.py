@@ -38,22 +38,13 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from opendiamond.filter import Filter, run_filter
+from opendiamond.filter import Filter
 from opendiamond.filter.parameters import *
-import sys
 
 class StringFilter(Filter):
-    name = 'String filter'
-    params = Parameters(
-        StringParameter('Search string'),
+    params = (
+        StringParameter('target_str'),
     )
-    # Override default dependency on RGB image filter, since we're not
-    # processing image data
-    dependencies = []
-
-    def __init__(self, *args, **kwargs):
-        Filter.__init__(self, *args, **kwargs)
-        self.target_str = self.args[0]
 
     def __call__(self, obj):
         # See if the target string is in the object data
@@ -69,4 +60,4 @@ class StringFilter(Filter):
 
 
 if __name__ == '__main__':
-    run_filter(sys.argv, StringFilter)
+    StringFilter.run()
