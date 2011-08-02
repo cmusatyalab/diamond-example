@@ -1,9 +1,9 @@
-all: fil_orientation.zip
+all: fil_orientation.search
 
 clean:
-	$(RM) *.zip
+	$(RM) *.search
 
-fil_orientation.zip: fil_orientation.py
-	diamond-bundle-python $^
+fil_orientation.search: fil_orientation.xml fil_orientation.py
+	diamond-bundle-search $^
 
 .PHONY: all clean

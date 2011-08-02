@@ -20,8 +20,8 @@ edu.cmu.cs.diamond.example.StringFind. You will need to give the
 location of fil_string as well as a text string to search for.
 Results will be printed.
 
-The python directory also contains a filter for use with HyperFind which
-searches images based on their orientation (horizontal or vertical).  This
-filter can be packaged into a filter bundle with make.  The bundle can
-then be installed in the HyperFind plugin directory or dragged into the
+The python directory also contains a search for use with HyperFind which
+filters images based on their orientation (horizontal or vertical).  This
+can be packaged into a search bundle with make.  The bundle can then be
+installed in a directory in the HyperFind search path or dragged into the
 HyperFind window for one-off searches.

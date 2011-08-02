@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search xmlns="http://diamond.cs.cmu.edu/xmlns/opendiamond/bundle-1"
+    displayName="Orientation">
+  <options>
+    <choiceOption displayName="Image orientation" name="orientation">
+      <choice displayName="Horizontal" value="horz"/>
+      <choice displayName="Vertical" value="vert"/>
+    </choiceOption>
+  </options>
+  <filters>
+    <filter code="fil_orientation.py">
+      <minScore value="1"/>
+      <dependencies>
+        <!-- We need to run after the RGB image decoder -->
+        <dependency fixedName="RGB"/>
+      </dependencies>
+      <arguments>
+        <argument option="orientation"/>
+      </arguments>
+    </filter>
+  </filters>
+</search>

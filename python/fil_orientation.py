@@ -38,30 +38,17 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 # OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from opendiamond.filter import Filter, run_filter
+from opendiamond.filter import Filter
 from opendiamond.filter.parameters import *
-import sys
 
 class OrientationFilter(Filter):
-    name = 'Orientation'
-    params = Parameters(
-        ChoiceParameter("Image orientation", (
-            ('horz', "Horizontal"),
-            ('vert', "Vertical"),
-        )),
+    params = (
+        StringParameter('orientation'),
     )
-
-    def __init__(self, *args, **kwargs):
-        Filter.__init__(self, *args, **kwargs)
-        self.want_vertical = (self.args[0] == 'vert')
 
     def __call__(self, obj):
         width, height = obj.image.size
-        if (height < width) ^ self.want_vertical:
-            return True
-        else:
-            return False
-
+        return (height < width) ^ (self.orientation == 'vert')
 
 if __name__ == '__main__':
-    run_filter(sys.argv, OrientationFilter)
+    OrientationFilter.run()
