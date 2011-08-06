@@ -1,9 +1,9 @@
-all: fil_orientation.search
+all: orientation.pred
 
 clean:
-	$(RM) *.search
+	$(RM) *.pred
 
-fil_orientation.search: fil_orientation.xml fil_orientation.py
-	diamond-bundle-search $^
+orientation.pred: orientation.xml fil_orientation.py
+	diamond-bundle-predicate $^
 
 .PHONY: all clean
