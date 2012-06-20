@@ -1,0 +1,133 @@
+<!doctype html>
+<title>Search Results</title>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='jquery.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='sockjs.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='json-blaster.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='json-blaster-autopause.js') }}"></script>
+
+<style type="text/css">
+#infobar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-weight: bold;
+  text-align: center;
+}
+
+#infobar div {
+  padding: 0.3em;
+}
+
+#statistics {
+  background-color: #ddd;
+}
+
+#error {
+  display: none;
+  background-color: #d88;
+}
+
+#results {
+  padding-top: 2em;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+#results li {
+  list-style-type: none;
+  display: inline-block;
+  margin: 2px;
+  padding: 10px;
+  vertical-align: top;
+}
+</style>
+
+<div id="infobar">
+<div id="statistics">
+Initializing...
+</div>
+<div id="error">
+</div>
+</div>
+
+<ul id="results">
+</ul>
+
+<script type="text/javascript">
+$(function() {
+  function error(text) {
+    $('#error:hidden').text(text).show();
+  }
+
+  var blasters = [];
+  var found = [];
+  var processed = [];
+  var total = [];
+  var closed = 0;
+
+  function sum(arr) {
+    var total = 0;
+    $.each(arr, function(i, val) {
+      total += val;
+    });
+    return total;
+  }
+
+  {% for search in searches %}
+    blasters.push(new JSONBlasterSocket('{{ search.socket_url }}',
+        '{{ search.search_key }}'));
+  {% endfor %}
+
+  var autopause = new AutoPause(blasters);
+
+  $.each(blasters, function(i, blaster) {
+    found.push(0);
+    processed.push(0);
+    total.push(0);
+
+    blaster.onclose(function() {
+      if (++closed == blasters.length) {
+        error('Connection closed');
+      }
+    });
+
+    blaster.on('result', function(data) {
+      var jq = $('<li>' +
+          '<form method="post" target="_blank" ' +
+              'action="{{ url_for("make_result") }}">' +
+          '<input type="hidden" name="_csrf_token"' +
+              'value="{{ request.csrf_token }}">' +
+          '<input type="hidden" name="result_url">' +
+          '<a href="#" class="result-link"><img></a>' +
+          '</form>' +
+          '</li>');
+      jq.find('input[name=result_url]').attr('value', data._ResultURL.data);
+      jq.find('img').attr('src', data['thumbnail.jpeg'].image_url);
+      $('#results').append(jq);
+      autopause.element_added(jq);
+    });
+
+    blaster.on('statistics', function(data) {
+      found[i] = data.objs_passed;
+      processed[i] = data.objs_processed;
+      total[i] = data.objs_total;
+      $('#statistics').text(sum(found) + ' objects found, ' + sum(processed) +
+          ' processed, ' + sum(total) + ' total');
+    });
+
+    blaster.on('error', function(data) {
+      error(data.message);
+    });
+  });
+
+  $('#results').on('click', '.result-link', function(ev) {
+    ev.preventDefault();
+    $(this).parents('form').submit();
+  });
+});
+</script>

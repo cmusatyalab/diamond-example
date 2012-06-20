@@ -1,0 +1,26 @@
+<!doctype html>
+<title>Diamond Search</title>
+
+<style type="text/css">
+th {
+  text-align: right;
+  padding-right: 0.5em;
+}
+
+.submit {
+  padding-top: 1em;
+}
+</style>
+
+<form method="post" enctype="multipart/form-data" target="_blank">
+  <input type="hidden" name="_csrf_token" value="{{ request.csrf_token }}">
+  <table>
+    <tr><th>Scope cookie:<td><input type="file" name="cookie">
+    <tr><th>Image orientation:<td>
+      <select name="orientation">
+        <option value="vert">Portrait</option>
+        <option value="horz">Landscape</option>
+      </select>
+    <tr><th><td class="submit"><input type="submit" name="Search">
+  </table>
+</form>

@@ -1,0 +1,55 @@
+<!doctype html>
+<title>Search Result</title>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='jquery.js') }}"></script>
+
+<style type="text/css">
+#attributes {
+  width: 100%;
+  border-spacing: 0.5em 0.2em;
+  text-align: left;
+}
+
+#attributes td {
+  font-family: monospace;
+}
+</style>
+
+<div id="image">
+</div>
+
+<table id="attributes">
+<col width="30%">
+<col width="70%">
+<tr><th>Name<th>Value
+</table>
+
+<script type="text/javascript">
+$(function() {
+  $.ajax({
+    type: 'GET',
+    url: '{{ result_url }}',
+    dataType: 'jsonp',
+    jsonp: 'jsonp',
+    success: function(obj, textStatus, jqXHR) {
+      // Load image data
+      $('<img>').appendTo('#image').attr('src', obj[''].image_url);
+
+      // Load attributes table
+      var attrs = Object.keys(obj);
+      attrs.sort();
+      $.each(attrs, function(i, k) {
+        if (k === '') {
+          // Skip the data attribute
+          return;
+        }
+        var v = obj[k];
+        var row = $('<tr>').appendTo('#attributes');
+        row.append($('<td>').text(k));
+        row.append($('<td>').text(
+            typeof v.data !== 'undefined' ? v.data : '<Binary>'));
+      });
+    }
+  });
+});
+</script>
