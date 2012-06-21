@@ -31,4 +31,5 @@ HyperFind window for one-off searches.
 
 The webapp directory contains a sample web application using the JSON
 Blaster.  Run webappfind.py with the --help option to get the supported
-parameters.
+parameters.  You must use a scope cookie which includes a Blaster header
+(cookiecutter -b option) and which scopes a search over image files.
